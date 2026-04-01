@@ -40,12 +40,8 @@
                     </div>
 
                     <div class="mt-4">
-                        <button type="submit" class="btn btn-primary px-4">
-                            Cập nhật thông tin
-                        </button>
-                        <a href="{{ route('students.index') }}" class="btn btn-secondary px-4">
-                            Hủy
-                        </a>
+                        <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
+                        <a href="{{ route('students.index') }}" class="btn btn-secondary">Hủy</a>
                     </div>
                 </form>
             </div>

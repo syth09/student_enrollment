@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateStudentRequest;
 
 class StudentController extends Controller
 {
@@ -38,7 +38,7 @@ class StudentController extends Controller
         return view('students.edit', compact('student'));
     }
 
-    public function update(StoreStudentRequest $request, Student $student)
+    public function update(UpdateStudentRequest $request, Student $student)
     {
         $student->update($request->validated());
 
