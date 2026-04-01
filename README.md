@@ -1,45 +1,43 @@
-# ĐĂNG KÝ MÔN HỌC (CÓ QUY TẮC) - Laravel
+# Bài 3: Đăng Ký Môn Học (Có Quy Tắc) - Laravel
 
 ## Giới thiệu
 
-Dự án **ĐĂNG KÝ MÔN HỌC (CÓ QUY TẮC)** được xây dựng bằng Laravel Framework, thực hiện theo mô hình **MVC** và tuân thủ nghiêm ngặt các yêu cầu của bài tập.
+Dự án **Đăng Ký Môn Học** được xây dựng bằng Laravel Framework, thực hiện đầy đủ các chức năng theo yêu cầu của bài tập với các quy tắc nghiêm ngặt:
 
-## Yêu cầu chức năng đã hoàn thành
+- Không cho đăng ký trùng môn
+- Giới hạn tối đa 18 tín chỉ mỗi sinh viên
 
-- Thêm sản phẩm mới (Tên, Giá, Số lượng, Danh mục)
-- Hiển thị danh sách sản phẩm
-- Tìm kiếm sản phẩm theo tên
-- Sắp xếp theo tên (A → Z và Z → A)
-- Phân trang (Pagination)
-- Cập nhật thông tin sản phẩm
-- Xóa sản phẩm
-- Hiển thị trạng thái kho:
-    - **Hết hàng** (quantity = 0)
-    - **Sắp hết hàng** (quantity < 5)
-    - **Còn hàng** (quantity ≥ 5)
-- Validation dữ liệu đầy đủ
-- Giao diện sử dụng Bootstrap 5, rõ ràng và thân thiện
+## Chức năng đã hoàn thành
+
+- Quản lý Sinh viên (Thêm, Sửa, Xóa, Xem chi tiết)
+- Quản lý Môn học (Thêm, Sửa, Xóa, Xem chi tiết + số sinh viên đã đăng ký)
+- Đăng ký môn học cho sinh viên
+- Hiển thị danh sách môn học đã đăng ký của từng sinh viên
+- Tính tổng số tín chỉ của mỗi sinh viên
+- Kiểm tra quy tắc:
+    - Không cho đăng ký môn trùng
+    - Cảnh báo khi vượt quá 18 tín chỉ
+- Tìm kiếm và sắp xếp theo tên (A → Z, Z → A) ở cả Sinh viên và Môn học
+- Giao diện Bootstrap 5 hiện đại, rõ ràng
 
 ## Công nghệ sử dụng
 
-- **Laravel 12** (MVC Pattern)
-- **PHP 8.2+**
-- **MySQL**
-- **Blade Template**
-- **Bootstrap 5**
-- **Eloquent ORM**
-- **Form Request Validation** (tách lớp)
+- Laravel 12
+- PHP 8.2+
+- MySQL
+- Blade Template
+- Bootstrap 5
+- Eloquent ORM + Many-to-Many Relationship
+- Form Request Validation (tách lớp)
+- Pagination & Query String
 
-## Cấu trúc dự án
+## Cấu trúc Database
 
-- **Route**: `routes/web.php`
-- **Controller**: `app/Http/Controllers/ProductController.php`
-- **Model**: `app/Models/Product.php`
-- **Validation**: `app/Http/Requests/StoreProductRequest.php` & `UpdateProductRequest.php`
-- **Views**: `resources/views/products/`
-- **Migration**: `database/migrations/..._create_products_table.php`
+- `students`: id, name, email, major
+- `courses`: id, name, code, credits
+- `enrollments`: id, student_id, course_id, timestamps (pivot table)
 
-## Hướng dẫn cài đặt & chạy dự án
+## Hướng dẫn cài đặt & chạy
 
 ### 1. Clone hoặc giải nén dự án
 
@@ -67,14 +65,14 @@ cp .env.example .env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=stock_items
+DB_DATABASE=enrollment
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
 ### 5. Tạo Database
 
-- Vào phpMyAdmin tạo database tên stock_items.
+- Vào phpMyAdmin tạo database tên enrollment.
 
 ### 6. Chạy Migration
 
@@ -88,18 +86,20 @@ php artisan migrate
 php artisan serve
 ```
 
-- Truy cập: http://127.0.0.1:8000/products
+- Truy cập: http://127.0.0.1:8000/students
 
 ## Các chức năng chính
 
-- Thêm sinh viên, môn học (Có validation)
-- Hiển thị danh sách (Phân trang)
-- Tìm kiếm theo tên (Giữ query string)
-- Sắp xếp theo tên (A -> Z / Z -> A)
-- Cập nhật sản phẩm (Form edit)
-- Xóa sản phẩm (Có xác nhận)
-- Trạng thái kho (Hết hàng / Sắp hết hàng / Còn hàng đều có Badge màu sắc riêng biệt)
-- Validation dữ liệu (Sử dụng Form Request)
+- Quản lý Sinh viên (Thêm, Sửa, Xóa, Xem chi tiết)
+- Quản lý Môn học (Thêm, Sửa, Xóa, Xem chi tiết + số sinh viên đã đăng ký)
+- Đăng ký môn học cho sinh viên
+- Hiển thị danh sách môn học đã đăng ký của từng sinh viên
+- Tính tổng số tín chỉ của mỗi sinh viên
+- Kiểm tra quy tắc:
+    - Không cho đăng ký môn trùng
+    - Cảnh báo khi vượt quá 18 tín chỉ
+- Tìm kiếm và sắp xếp theo tên (A → Z, Z → A) ở cả Sinh viên và Môn học
+- Giao diện Bootstrap 5 hiện đại, rõ ràng
 
 ## Yêu cầu quan trọng đã đáp ứng
 
@@ -114,4 +114,4 @@ php artisan serve
 - Họ và tên: Tạ Tuấn Phong
 - MSSV: 20220849
 - Lớp: DCCNTT 13.10.5
-- Môn học: PHP & Laravel - Bài 2: Quản lý Sản phẩm (Kho hàng)
+- Môn học: PHP & Laravel - Bài 3: Đăng Ký Môn Học (Có Quy Tắc)
