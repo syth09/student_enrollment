@@ -3,14 +3,64 @@
 @section('content')
     <div class="container">
 
+        {{-- Thông báo thành công --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         {{-- Tiêu đề chính --}}
         <div class="bg-primary text-white p-4 rounded-3 shadow-sm mb-4">
             <h1 class="mb-0 fs-3 fw-bold">Quản Lý Sinh Viên</h1>
         </div>
 
-        <a href="{{ route('students.create') }}" class="btn btn-primary mb-3">
-            + Thêm sinh viên mới
-        </a>
+        <!-- Filter - Thêm mới - Tìm kiếm -->
+        <div class="row mb-4 align-items-end g-3">
+
+            <!-- Nút Thêm & Lọc -->
+            <div class="col-md-2">
+                <div class="d-flex flex-column gap-2">
+                    <a href="{{ route('students.create') }}" class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i> Thêm sinh viên mới
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tìm kiếm + Sắp xếp -->
+            <div class="col-md-9">
+                <form method="GET" action="{{ route('students.index') }}" id="mainFilter">
+                    <div class="row g-2">
+                        <!-- Ô tìm kiếm -->
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control"
+                                    placeholder="Tìm kiếm theo tên sinh viên..." value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="bi bi-search"></i> Tìm
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sắp xếp -->
+                        <div class="col-md-4">
+                            <select name="sort" class="form-select" onchange="this.form.submit()">
+                                <option value="id_desc" {{ request('sort') == 'id_desc' ? 'selected' : '' }}>
+                                    Lọc theo ID của Sinh viên mới nhất
+                                </option>
+                                <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>
+                                    Tên Z → A
+                                </option>
+                                <option value="name_asc" {{ request('sort', 'name_asc') == 'name_asc' ? 'selected' : '' }}>
+                                    Tên A → Z
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="card shadow-sm">
             <div class="card-body p-0">

@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['name', 'code', 'credits'];
 
+    // Quan hệ với Sinh viên (Many-to-Many)
     public function students()
     {
         return $this->belongsToMany(Student::class, 'enrollments')

@@ -5,12 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::withCount('courses')->paginate(10);
+        $query = Student::query();
+
+        // Tìm kiếm theo tên
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Sắp xếp
+        $sort = $request->get('sort', 'name_asc');
+
+        if ($sort === 'name_desc') {
+            $query->orderBy('name', 'desc');
+        } else {
+            $query->orderBy('name', 'asc');   // mặc định A → Z
+        }
+
+        $students = $query->withCount('courses')->paginate(10)->withQueryString();
+
         return view('students.index', compact('students'));
     }
 

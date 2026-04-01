@@ -6,10 +6,13 @@ use App\Http\Controllers\EnrollmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('students.index');
+    return view('welcome');
 });
 
+// Quản lý Sinh viên
 Route::resource('students', StudentController::class);
+
+// Quản lý Môn học
 Route::resource('courses', CourseController::class);
 
 Route::get('students/{student}/enroll', [EnrollmentController::class, 'create'])->name('enroll.create');
