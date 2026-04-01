@@ -57,6 +57,13 @@
                                 </option>
                             </select>
                         </div>
+
+                        {{-- Truy cập danh sách Courses --}}
+                        <div class="col-md-2 text-end">
+                            <a href="{{ route('courses.index') }}" class="btn btn-success">
+                                <i class="bi bi-journal-bookmark"></i> Các môn học
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>

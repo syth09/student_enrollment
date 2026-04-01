@@ -11,6 +11,13 @@
             </div>
         @endif
 
+        {{-- Trở lại danh sách sinh viên --}}
+        <div class="mb-3">
+            <a href="{{ route('students.index') }}" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i> Quay lại danh sách sinh viên
+            </a>
+        </div>
+
         {{-- Tiêu đề --}}
         <div class="bg-success text-white p-4 rounded-3 shadow-sm mb-4">
             <h1 class="mb-0 fs-3 fw-bold">Quản Lý Môn Học</h1>

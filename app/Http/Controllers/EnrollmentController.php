@@ -10,7 +10,10 @@ class EnrollmentController extends Controller
 {
     public function create(Student $student)
     {
-        $courses = Course::whereNotIn('id', $student->courses->pluck('id'))->get();
+        // Lấy các môn chưa đăng ký
+        $enrolledIds = $student->courses->pluck('id');
+        $courses = Course::whereNotIn('id', $enrolledIds)->get();
+
         return view('enrollments.create', compact('student', 'courses'));
     }
 
@@ -18,7 +21,18 @@ class EnrollmentController extends Controller
     {
         $student->courses()->attach($request->course_id);
 
-        return redirect()->route('students.show', $student)
+        return redirect()
+            ->route('students.show', $student)
             ->with('success', 'Đăng ký môn học thành công!');
+    }
+
+    // Hủy đăng ký môn học
+    public function destroy(Student $student, Course $course)
+    {
+        $student->courses()->detach($course->id);
+
+        return redirect()
+            ->route('students.show', $student)
+            ->with('success', 'Đã hủy đăng ký môn học thành công!');
     }
 }

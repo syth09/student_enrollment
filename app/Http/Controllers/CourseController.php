@@ -42,6 +42,12 @@ class CourseController extends Controller
             ->with('success', 'Thêm môn học thành công!');
     }
 
+    public function show(Course $course)
+    {
+        $course->load('students'); // Load danh sách sinh viên đã đăng ký
+        return view('courses.show', compact('course'));
+    }
+
     public function edit(Course $course)
     {
         return view('courses.edit', compact('course'));
