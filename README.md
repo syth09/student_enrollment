@@ -92,7 +92,7 @@ php artisan serve
 
 ## Các chức năng chính
 
-- Thêm sản phẩm (Có validation)
+- Thêm sinh viên, môn học (Có validation)
 - Hiển thị danh sách (Phân trang)
 - Tìm kiếm theo tên (Giữ query string)
 - Sắp xếp theo tên (A -> Z / Z -> A)
